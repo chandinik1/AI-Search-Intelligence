@@ -58,6 +58,7 @@ ai-search-intelligence/
 │   ├── test_retrieval.py
 │   └── test_extraction.py
 ├── docs/
+│   ├── images/               # PNGs exported when notebook is executed
 │   ├── PART_1_RETRIEVAL_EVALUATION.md
 │   └── PART_2_API_BACKEND.md
 ├── Dockerfile
@@ -117,7 +118,7 @@ docker start ai-search-db
 
 Do not run the fresh database Compose file against a conflicting existing `ai-search-db` container. Docker exposes the development database on host **127.0.0.1:5433**; the database listens on 5432 *inside* Docker.
 
-Open `notebooks/ai_search_intelligence.ipynb` in Jupyter/VS Code using the same interpreter. **Open it with the working directory at repository root** so relative `data/` paths work. Execute the analysis, ingestion, retrieval and evaluation sections in order. To avoid network-dependent retrieval, enable `USE_OFFLINE_FIXTURES=True` in the notebook; these passages are explicitly curated demonstrations and **not live webpage text**.
+Open `notebooks/ai_search_intelligence.ipynb` in Jupyter/VS Code using the same interpreter. Use the **figure-export-enabled notebook** and run its initial repository-root setup cell; it supports starting from either `notebooks/` or the repository root, resolving relative `data/` and `docs/images/` paths. Execute the analysis, ingestion, retrieval and evaluation sections in order. To avoid network-dependent retrieval, enable `USE_OFFLINE_FIXTURES=True` in the notebook; these passages are explicitly curated demonstrations and **not live webpage text**.
 
 ### Evaluation protocol
 
@@ -129,6 +130,69 @@ Open `notebooks/ai_search_intelligence.ipynb` in Jupyter/VS Code using the same 
 - **Fair comparison:** Use one frozen corpus, consistent candidate budgets, and the same judgments for dense/BM25/RRF. Silver heuristic labels can systematically favor lexical matching and are not ground truth.
 
 Read [Part 1 technical documentation](docs/PART_1_RETRIEVAL_EVALUATION.md) for the retrieval mechanics, evaluation workflow and limitations.
+
+## Results and visualizations
+
+The notebook contains an exploratory retrieval study, not a validated benchmark. The figures below are **generated locally by executing the notebook**; they are not pre-populated screenshots. If a figure appears broken in the GitHub README, run its corresponding cell and commit the exported PNG in `docs/images/`.
+
+### 1. Chunking with overlap
+
+![Overlapping text chunks](docs/images/chunk_overlap.png)
+
+Documents are split into overlapping windows to preserve context around chunk boundaries. Overlap also increases storage and may produce near-duplicate results.
+
+### 2. Dense retrieval similarity
+
+![Dense similarity ranking](docs/images/dense_similarity_ranking.png)
+
+A query embedding is compared with chunk embeddings using cosine similarity. The graph shows ranking scores from the current selected question and page.
+
+### 3. Embedding exploration: PCA
+
+![PCA projection of question and chunk embeddings](docs/images/embedding_pca.png)
+
+PCA projects the 384-dimensional embeddings onto two axes for visualization. Distances in the projected plot **do not exactly preserve** the original cosine similarities.
+
+### 4. Cosine similarity heatmap
+
+![Question–chunk similarity heatmap](docs/images/similarity_heatmap.png)
+
+Shows the original embedding cosine similarities across investigation questions and text chunks. Similarity is not itself proof that a chunk answers a question.
+
+### 5. Dense vs. sparse vs. hybrid ranking
+
+![Dense, BM25, and RRF rank comparison](docs/images/retrieval_comparison.png)
+
+This plot compares rankings rather than raw scores because cosine similarity, BM25 and RRF use different scales.
+
+### 6. Ingestion quality
+
+![Corpus quality diagnostics](docs/images/corpus_quality.png)
+
+Displays corpus-size and text-length diagnostics after ingestion. HTML boilerplate filtering is heuristic; inspect individual chunks when evaluating quality.
+
+### 7. Retrieval evaluation
+
+![Recall@5 and MRR@5](docs/images/retrieval_evaluation.png)
+
+The notebook measures Recall@5 and MRR@5 on its selected evaluation questions. **Do not interpret scores produced with `USE_SILVER_DEMO=True` as human-reviewed evidence.** These provisional, heuristic judgments can bias the comparison. Set `USE_SILVER_DEMO=False` only after reviewing question–chunk relevance labels.
+
+#### Exporting images for GitHub
+
+1. Use the corrected notebook version that calls `fig.savefig(FIGURE_DIR / "name.png", ...)` before each `plt.show()`.
+2. Run its repository-root setup cell first; confirm that `FIGURE_DIR` points to `<repository>/docs/images`.
+3. Execute plotting cells in order, including any prerequisite ingestion, model and evaluation cells.
+4. Confirm `docs/images/*.png` exists **on your Mac**. Committing only the notebook does not automatically commit PNGs.
+5. From the repository root, run:
+
+```bash
+ls -lh docs/images/
+git add README.md notebooks/ai_search_intelligence.ipynb docs/images/
+git commit -m "Document API and publish retrieval visualizations"
+git push origin main
+```
+
+If you have **not yet generated** the PNGs, GitHub will show broken images until they are committed. It's better to omit image links temporarily than to substitute illustrative screenshots for real results.
 
 ## Part 2 — API & Backend Engineering
 
@@ -175,6 +239,84 @@ curl -X POST http://127.0.0.1:8000/search \
 
 `/search` supports `dense`, `bm25`, and `hybrid` methods. Scores are **not comparable across methods**: dense returns cosine similarity, BM25 returns its lexical score, and hybrid returns an RRF score.
 
+### Request validation and response contract
+
+FastAPI auto-generates Swagger/OpenAPI docs at [`/docs`](http://127.0.0.1:8000/docs) while the local service is running. The `/search` request accepts:
+
+| Field | Type | Meaning |
+|---|---|---|
+| `question` | string, 3–1000 characters | What evidence to retrieve |
+| `brand` | string | Brand-filter for the stored corpus (defaults to `Advantech`) |
+| `method` | `dense`, `bm25`, `hybrid` | Select a retrieval strategy |
+| `top_k` | integer, 1–50 | Maximum number of returned chunks |
+
+The response follows this schema (the values below are **structural placeholders**, not actual search results):
+
+```json
+{
+  "method": "hybrid",
+  "results": [
+    {
+      "id": 123,
+      "url": "https://example.org/product-page",
+      "chunk_index": 2,
+      "content": "Example retrieved text chunk",
+      "score": 0.032
+    }
+  ]
+}
+```
+
+Replace the placeholder example with the output from your own running service only after checking that the chunks and URLs are correct. The `/health` endpoint reports process liveness; `/health/db` independently checks PostgreSQL and can return HTTP 503 when unavailable. `/analytics/visibility` uses the **synthetic** mock provider dataset and should not be represented as live provider monitoring.
+
+For a readable actual response, run in a second terminal while Uvicorn is running:
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/search \
+  -H 'Content-Type: application/json' \
+  -d '{"question":"Which industrial edge gateways support remote management?","brand":"Advantech","method":"hybrid","top_k":3}' \
+  | python -m json.tool
+```
+
+### Execution path
+
+```mermaid
+sequenceDiagram
+    participant User as HTTP Client
+    participant API as FastAPI + Pydantic
+    participant Svc as Search Service
+    participant Model as MiniLM Model
+    participant DB as PostgreSQL + pgvector
+    User->>API: POST /search
+    API->>API: Validate payload
+    API->>Svc: search(question, brand, method, top_k)
+    opt Dense or Hybrid
+        Svc->>Model: Create embedding (worker thread)
+        Model-->>Svc: 384D vector
+        Svc->>DB: Async cosine-distance query
+        DB-->>Svc: Dense results
+    end
+    opt BM25 or Hybrid
+        Svc->>DB: Async fetch brand corpus
+        DB-->>Svc: Candidate text chunks
+        Svc->>Svc: BM25 scoring (worker thread)
+    end
+    opt Hybrid
+        Svc->>Svc: Fuse ranks using RRF
+    end
+    Svc-->>API: Ranked evidence chunks
+    API-->>User: JSON response
+```
+
+### Why these backend choices?
+
+- **FastAPI and Pydantic:** callable, documented HTTP endpoints with typed request validation; the notebook remains the research environment.
+- **Asynchronous psycopg:** database waits need not block the event loop. This does not inherently accelerate SQL queries.
+- **`asyncio.to_thread`:** offloads blocking model inference and BM25 scoring; does not turn these operations into parallel GPU inference.
+- **Decorators:** `@app.get` / `@app.post` register routes; a custom `@timed` wrapper centralizes request-duration logging.
+- **Docker:** reproducible API packaging while persisting PostgreSQL data separately.
+- **pytest:** isolated algorithm tests and API validation tests; live database queries still need a separate integration check.
+
 To containerize **only the API** while reusing an existing DB on Docker Desktop for Mac:
 
 ```bash
@@ -193,6 +335,12 @@ PYTHONPATH=src python -m pytest -q
 Unit tests are distinct from a **live integration test**: validate `/health/db` and `/search` against your locally populated database to check model imports, vector dimensions and SQL behavior end-to-end.
 
 Read [Part 2 technical documentation](docs/PART_2_API_BACKEND.md) for routes, code ownership, concurrency, decorators, Docker and testing.
+
+## Technical documentation
+
+- **[Part 1 — Retrieval Research & Evaluation](docs/PART_1_RETRIEVAL_EVALUATION.md):** ingestion strategy, embedding mathematics, BM25, RRF, evaluation setup and validity threats.
+- **[Part 2 — API & Backend Engineering](docs/PART_2_API_BACKEND.md):** module responsibilities, API schemas, request sequence, concurrency, decorators, Docker and limitations.
+- **[Notebook](notebooks/ai_search_intelligence.ipynb):** implementation, plots and experimental results (after local execution).
 
 ## What each part demonstrates
 

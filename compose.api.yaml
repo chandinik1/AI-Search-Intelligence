@@ -1,0 +1,11 @@
+# Attach API to the existing ai-search-db container without recreating it.
+# This works on Docker Desktop for macOS (host.docker.internal).
+services:
+  api:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-localdev}@host.docker.internal:5433/ai_search
+      MOCK_DATA_PATH: data/ai_search_mock_dataset.json
+    restart: unless-stopped

@@ -1,0 +1,47 @@
+{
+  "note": "Hand-curated paraphrases of publicly described page content; not full live scraped webpages. Use for reproducible demos only.",
+  "documents": [
+    {
+      "source_key": "gateways",
+      "url": "https://www.advantech.com/en-eu/products/industrial-iot-edge-gateway/sub_9a0cc561-8fc2-4e22-969c-9df90a3952b5",
+      "title": "Industrial IoT edge gateway portfolio",
+      "content": "Advantech describes industrial IoT edge gateways as devices that bridge data from edge equipment to cloud environments. They can function as protocol converters, data collectors, and data loggers. The portfolio includes UNO edge computers and industrial gateway offerings. Different devices provide different combinations of computing power and field connectivity, so the exact model should be checked rather than assuming universal protocol support. A buyer should distinguish a broad gateway category description from the specifications for an individual product. This category is useful for investigating whether Advantech offers gateways and what role gateways play between operational equipment and cloud systems.",
+      "source_mode": "CURATED_OFFLINE_PARAPHRASE"
+    },
+    {
+      "source_key": "uno2484",
+      "url": "https://www.advantech.com/en-eu/products/1-2mlj9a/uno-2484g-v2/mod_9764124e-aff0-4e44-80d5-6fd87eec5982",
+      "title": "UNO-2484G V2 modular embedded box PC",
+      "content": "The Advantech UNO-2484G V2 is a modular embedded box PC with an 11th generation Intel Core i processor. Its published features include four Gigabit Ethernet interfaces and four RS232/422/485 serial interfaces. USB, HDMI and DisplayPort are included, and an optional second stack supports iDoor expansion. The product page describes a compact fanless design, a ruggedized lockable IO design and NVMe storage support. This is product-specific hardware evidence, not proof that every Advantech edge gateway has these interfaces. Comparing it with another manufacturer requires independent specifications from that manufacturer.",
+      "source_mode": "CURATED_OFFLINE_PARAPHRASE"
+    },
+    {
+      "source_key": "connectivity",
+      "url": "https://www.advantech.com/en/industrial-automation/campaign/iot-component",
+      "title": "Industrial IoT components and protocols",
+      "content": "Advantech discusses industrial communication and sensing components for connecting machines, devices and equipment. The page discusses MQTT, Node-RED, NB-IoT, LoRa and SNMP as technologies in its IoT communications portfolio. ADAM IO modules, EKI gateways and WISE wireless sensing nodes are examples of components for connecting industrial and legacy equipment. The communication options depend on individual products and system architecture. The page also discusses remote monitoring, connected network devices and protocol conversion. A general technology list is not a guarantee that a particular gateway supports every named protocol.",
+      "source_mode": "CURATED_OFFLINE_PARAPHRASE"
+    },
+    {
+      "source_key": "edgeintelligence",
+      "url": "https://www.advantech.com/en-eu/solutions/iot-edge-intelligence-solutions-and-services",
+      "title": "Edge intelligence solutions and remote management",
+      "content": "Advantech describes edge computing solutions combining edge hardware, AI, wireless connectivity and cloud integration. Edge AI can support local processing, visual analytics and industrial system control. The page discusses cybersecurity at the gateway and the importance of data protection, access control and threat detection. The DeviceOn-related capabilities described include device data and application management, monitoring, alerts and dashboards. The solutions can include multiple deployment patterns such as public cloud, private cloud and on-premise infrastructure. These descriptions support capability screening but do not establish independent security certification or any guaranteed performance.",
+      "source_mode": "CURATED_OFFLINE_PARAPHRASE"
+    },
+    {
+      "source_key": "industrialpc",
+      "url": "https://www.advantech.com/en-eu/intelligent-systems/industrial-computers",
+      "title": "Industrial computers and gateway software",
+      "content": "Advantech industrial computing pages describe remote IoT edge management using WISE-DeviceOn, including device, data and application management. Its intelligent IoT gateway software EdgeLink connects edge devices, supports multiple protocols, and shares data with cloud or automation systems. The page describes WebAccess software for data acquisition, supervisory control and visualization. It also discusses an embedded out-of-band board management solution, iBMC, enabling remote power management, forced shutdown and reboot operations. Availability and compatibility must be checked for specific devices and software versions.",
+      "source_mode": "CURATED_OFFLINE_PARAPHRASE"
+    },
+    {
+      "source_key": "communication",
+      "url": "https://www.advantech.com/en-us/products/intelligent-communication-gateways/sub_7332cf9e-bf70-4a79-b0b6-fd8a2182cd72",
+      "title": "Intelligent communication gateways",
+      "content": "Advantech describes intelligent communication gateways as ARM-based platforms offering wireless and Ethernet connectivity and support for multiple protocols. The ECU-1000 family is presented for industrial data acquisition and device connectivity. Built-in EdgeLink software is described as supporting protocol conversion and integration with cloud platforms. EdgeHub provides capabilities for remote operation, device monitoring and secure maintenance. This information identifies gateway software and management concepts but does not specify exact supported protocols for every ECU-1000 configuration.",
+      "source_mode": "CURATED_OFFLINE_PARAPHRASE"
+    }
+  ]
+}

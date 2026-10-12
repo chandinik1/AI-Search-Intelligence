@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg18-trixie
+    container_name: ai-search-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-localdev}
+      POSTGRES_DB: ai_search
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - ai_search_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ai_search"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  ai_search_data:

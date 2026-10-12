@@ -1,0 +1,253 @@
+{
+  "description": "Page-level evidence expectations from curated public-page summaries, not manually checked chunk-level qrels. Review all labels against downloaded content. Negative questions evaluated separately.",
+  "questions": [
+    {
+      "query_id": "e01",
+      "question": "What role do Advantech industrial IoT gateways serve between field devices and cloud services?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/products/industrial-iot-edge-gateway/sub_9a0cc561-8fc2-4e22-969c-9df90a3952b5"
+      ],
+      "expected_source_keys": [
+        "gateways"
+      ],
+      "evidence_terms": [
+        "protocol converters",
+        "data collectors",
+        "cloud"
+      ],
+      "query_type": "paraphrase",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e02",
+      "question": "Which UNO-2484G V2 network and serial interfaces are mentioned?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/products/1-2mlj9a/uno-2484g-v2/mod_9764124e-aff0-4e44-80d5-6fd87eec5982"
+      ],
+      "expected_source_keys": [
+        "uno2484"
+      ],
+      "evidence_terms": [
+        "Gigabit Ethernet",
+        "RS232"
+      ],
+      "query_type": "exact",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e03",
+      "question": "Which Advantech hardware supports modular iDoor expansion?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/products/1-2mlj9a/uno-2484g-v2/mod_9764124e-aff0-4e44-80d5-6fd87eec5982"
+      ],
+      "expected_source_keys": [
+        "uno2484"
+      ],
+      "evidence_terms": [
+        "iDoor"
+      ],
+      "query_type": "exact",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e04",
+      "question": "Which industrial connectivity technologies are discussed, including MQTT and LoRa?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en/industrial-automation/campaign/iot-component"
+      ],
+      "expected_source_keys": [
+        "connectivity"
+      ],
+      "evidence_terms": [
+        "MQTT",
+        "LoRa"
+      ],
+      "query_type": "exact",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e05",
+      "question": "Which Advantech product families help connect older industrial equipment?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en/industrial-automation/campaign/iot-component"
+      ],
+      "expected_source_keys": [
+        "connectivity"
+      ],
+      "evidence_terms": [
+        "ADAM",
+        "EKI"
+      ],
+      "query_type": "paraphrase",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e06",
+      "question": "How does Advantech describe remote device monitoring and management?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/solutions/iot-edge-intelligence-solutions-and-services",
+        "https://www.advantech.com/en-eu/intelligent-systems/industrial-computers",
+        "https://www.advantech.com/en-us/products/intelligent-communication-gateways/sub_7332cf9e-bf70-4a79-b0b6-fd8a2182cd72"
+      ],
+      "expected_source_keys": [
+        "edgeintelligence",
+        "industrialpc",
+        "communication"
+      ],
+      "evidence_terms": [
+        "DeviceOn",
+        "EdgeHub",
+        "monitoring"
+      ],
+      "query_type": "paraphrase",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e07",
+      "question": "What is EdgeLink used for in industrial gateway solutions?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/intelligent-systems/industrial-computers",
+        "https://www.advantech.com/en-us/products/intelligent-communication-gateways/sub_7332cf9e-bf70-4a79-b0b6-fd8a2182cd72"
+      ],
+      "expected_source_keys": [
+        "industrialpc",
+        "communication"
+      ],
+      "evidence_terms": [
+        "EdgeLink",
+        "protocol"
+      ],
+      "query_type": "exact",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e08",
+      "question": "Does Advantech offer cloud and on-premise deployment options for its edge management solutions?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/solutions/iot-edge-intelligence-solutions-and-services"
+      ],
+      "expected_source_keys": [
+        "edgeintelligence"
+      ],
+      "evidence_terms": [
+        "on-premise",
+        "cloud"
+      ],
+      "query_type": "paraphrase",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e09",
+      "question": "Which security concerns are highlighted for industrial gateways?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/solutions/iot-edge-intelligence-solutions-and-services"
+      ],
+      "expected_source_keys": [
+        "edgeintelligence"
+      ],
+      "evidence_terms": [
+        "access control",
+        "threat detection"
+      ],
+      "query_type": "paraphrase",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e10",
+      "question": "How can operators remotely reboot edge computing systems?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/intelligent-systems/industrial-computers"
+      ],
+      "expected_source_keys": [
+        "industrialpc"
+      ],
+      "evidence_terms": [
+        "iBMC",
+        "reboot"
+      ],
+      "query_type": "paraphrase",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e11",
+      "question": "What computing processor generation does the UNO-2484G V2 use?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/products/1-2mlj9a/uno-2484g-v2/mod_9764124e-aff0-4e44-80d5-6fd87eec5982"
+      ],
+      "expected_source_keys": [
+        "uno2484"
+      ],
+      "evidence_terms": [
+        "11th generation",
+        "Intel Core"
+      ],
+      "query_type": "exact",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e12",
+      "question": "How is edge AI described as useful in industrial operations?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/solutions/iot-edge-intelligence-solutions-and-services"
+      ],
+      "expected_source_keys": [
+        "edgeintelligence"
+      ],
+      "evidence_terms": [
+        "local processing",
+        "visual analytics"
+      ],
+      "query_type": "paraphrase",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e13",
+      "question": "What software does Advantech mention for SCADA and industrial visualization?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-eu/intelligent-systems/industrial-computers"
+      ],
+      "expected_source_keys": [
+        "industrialpc"
+      ],
+      "evidence_terms": [
+        "WebAccess"
+      ],
+      "query_type": "exact",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e14",
+      "question": "Which gateway family uses ARM-based platforms and Ethernet or wireless communication?",
+      "expected_source_urls": [
+        "https://www.advantech.com/en-us/products/intelligent-communication-gateways/sub_7332cf9e-bf70-4a79-b0b6-fd8a2182cd72"
+      ],
+      "expected_source_keys": [
+        "communication"
+      ],
+      "evidence_terms": [
+        "ARM-based",
+        "Ethernet"
+      ],
+      "query_type": "paraphrase",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e15",
+      "question": "What is the exact price of the UNO-2484G V2 in Berlin today?",
+      "expected_source_urls": [],
+      "expected_source_keys": [],
+      "evidence_terms": [],
+      "query_type": "unanswerable",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    },
+    {
+      "query_id": "e16",
+      "question": "Is Siemens definitively faster than Advantech for every factory workload?",
+      "expected_source_urls": [],
+      "expected_source_keys": [],
+      "evidence_terms": [],
+      "query_type": "unanswerable",
+      "annotation_status": "PROVISIONAL_PAGE_LEVEL_NOT_GOLD"
+    }
+  ]
+}

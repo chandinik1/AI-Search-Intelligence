@@ -1,0 +1,20 @@
+# Secrets and environments
+.env
+.env.*
+!.env.example
+.venv/
+ai_search_env/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+# Generated labels and experiment outputs (protect reviewed work)
+data/advantech_chunk_judgments_review.csv
+*.log
+*.sqlite
+# Large models and local data
+.cache/
+models/
+
+*.egg-info/
+.pytest_cache/
